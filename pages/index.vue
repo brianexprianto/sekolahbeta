@@ -80,24 +80,25 @@
           </div>
         </div>
       </div>
-
+<div class="list-task row">
       <transition-group name="tasks" tag="div" class="list-task row">
-      <CardItem
+      <!-- <CardItem
       v-for="task in resultQuery"
       :task="task"
       :key="task.id"
       :isGrid="isGrid"
-      />
-      </transition-group>
-
-      <div class="list-task row">
+      /> -->
+      
         <CardItem
           v-for="(tasks) in resultQuery"
           :key="tasks.id"
           :task="tasks"
           :isGrid="isGrid"
         />
-      </div>
+      
+      </transition-group>
+</div>
+      
 
       <div class="action py-2">
         <a
@@ -107,21 +108,25 @@
           @click="isCreating = !isCreating"
           >Add Task</a
         >
+        
         <div class="add-card" v-else>
+          
           <div class="card mb-2">
             <div class="card-body d-flex flex-column p-0">
+              <form v-on:submit.prevent="create">
               <input
                 class="form-control border-0 mb-2"
                 placeholder="Title"
                 type="text"
+                v-model="form.title"
               />
               <textarea
                 class="form-control border-0 small"
                 placeholder="Description"
                 rows="3"
+                v-model="form.description"
               ></textarea>
-            </div>
-          </div>
+            
           <div class="button-wrapper d-flex">
             <button class="btn btn-primary me-2">Save</button>
             <button
@@ -131,12 +136,14 @@
               Cancel
             </button>
           </div>
+          </form>
+          </div>
+          </div>
+          
         </div>
       </div>
 
-      <div class="action py-2">
-        <a href="#" class="add-button">Add Task</a>
-      </div>
+      
     </div>
   </div>
 </template>
@@ -152,7 +159,10 @@ export default {
         message: "",
         priority: "",
         agreement: "",
+        title: "",
+        description: "",
       },
+
 
       tasks: [
         {
@@ -220,6 +230,18 @@ export default {
     },
     shuffle() {
         this.tasks = _.shuffle(this.tasks);
+    },
+
+    create(){
+      this.tasks.push({
+        id : Math.floor(Math.random() * 10),
+        title: this.form.title,
+        description: this.form.description,
+        isDone: false,
+        category:'default',
+        
+      });
+      
     },
     
   },
