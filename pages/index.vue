@@ -37,8 +37,17 @@
         <div class="d-flex align-items-center ms-auto">
           <div>
             <select v-model="kategori">
+              <option value="">Sort by Category</option>
               <option value="kategori1">kategori 1</option>
               <option value="kategori2">kategori 2</option>
+            </select>
+          </div>
+  
+          <div>
+            <select v-model="sortTitle" @change="sort">
+              <option value="">Sort by Title</option>
+              <option value="asc">Ascending</option>
+              <option value="desc">Descending</option>
             </select>
           </div>
 
@@ -191,6 +200,7 @@ export default {
         },
       ],
 
+      sortTitle:"",
       kategori: "",
       searchQuery: "",
       ok: "true",
@@ -242,6 +252,11 @@ export default {
         
       });
       
+    },
+    sort() {
+      if (this.sortTitle) {
+        this.tasks = _.orderBy(this.tasks, ["title"], [this.sortTitle]);
+      }
     },
     
   },
