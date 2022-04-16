@@ -5,6 +5,8 @@
       isGrid ? 'col-12 col-md-6 col-lg-4' : 'col-12',
     ]"
   >
+    
+
     <input
       type="checkbox"
       name="status"
@@ -24,6 +26,7 @@
       <div class="description-task small text-muted">
         {{ task.description }}
       </div>
+      <input type="date" class="form-control form-control-sm" />
     </div>
   </div>
 </template>
@@ -37,7 +40,6 @@ export default {
         title: "untitled",
         description: "undescribe",
         isDone: false,
-        
       },
     },
     isGrid: {
@@ -45,7 +47,6 @@ export default {
       required: true,
       default: false,
     },
-    
   },
 };
 </script>
